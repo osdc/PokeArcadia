@@ -2,56 +2,105 @@ import React, { useEffect, useRef } from "react";
 import axios from "axios";
 
 const baseHeight = 10;
+
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const fetchAndDrawPokemon = async () => {
       const canvas = canvasRef.current;
-      const side = (window.innerHeight * 8) / 10;
       if (canvas) {
-        canvas.width = side * 2;
-        canvas.height = side;
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.fillStyle = "#fdffaf";
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          const background = new Image();
+          background.src =
+            "https://opengameart.org/sites/default/files/big%20ol%20ssss_0.png";
+          background.onload = () => {
+            ctx.drawImage(
+              background,
+              0,
+              0,
+              window.innerWidth,
+              window.innerHeight,
+            );
+          };
 
-          const pokemonData: object[] = [];
-          for (let i = 0; i < 40; i++) {
+          const pokemonData: {
+            Pokiname: string;
+            PokiHeight: number;
+            PokeSprite: string;
+            img: HTMLImageElement;
+          }[] = [];
+
+          // Fetch Pokémon data and preload images
+          for (let i = 0; i < 50; i++) {
             const data = await getPokemon(getRandomInt(1, 600));
             if (data) {
-              if (data.PokiHeight > 20) data.PokiHeight = 20;
-              else if (data.PokiHeight < 8) data.PokiHeight = 8;
-              pokemonData.push(data);
+              data.PokiHeight = Math.max(10, Math.min(data.PokiHeight, 20));
+
+              const img = new Image();
+              img.src = data.PokeSprite;
+
+              // Wait for the image to load
+              await new Promise((resolve, reject) => {
+                img.onload = () => resolve(null);
+                img.onerror = () =>
+                  reject(`Failed to load image: ${data.PokeSprite}`);
+              });
+
+              pokemonData.push({ ...data, img });
             }
           }
+
+          const maxWidth = canvas.width;
+          const maxHeight = canvas.height;
+
+          const [startx, starty] = [
+            window.innerWidth / 10,
+            window.innerHeight / 8,
+          ];
+
+          // Sort Pokémon by natural image height in descending order
           pokemonData.sort((a, b) => b.PokiHeight - a.PokiHeight);
 
-          const padding = -1;
-          const cols = Math.floor((canvas.width - padding) / (baseHeight * 20));
+          // Set up coordinates and padding
+          let padding = 10;
+          const xOffsetMin = -500;
+          const xOffsetMax = 1500;
           let xCoord = padding;
           let yCoord = padding;
+          let base: number = pokemonData[0].PokiHeight * baseHeight;
 
+          // Draw each Pokémon on the canvas
           for (let i = 0; i < pokemonData.length; i++) {
-            const img = new Image();
-            img.src = pokemonData[i].PokeSprite;
+            const { img, PokiHeight } = pokemonData[i];
+            const size = baseHeight * PokiHeight;
 
-            img.onload = () => {
-              const size = baseHeight * pokemonData[i].PokiHeight;
-              ctx.drawImage(img, xCoord, yCoord, size, size);
+            // Ensure xCoord and yCoord stay within canvas bounds
+            if (xCoord + startx + size > maxWidth || xCoord + startx < 0) {
+              xCoord = padding;
+              yCoord += size + getRandomInt(10, 20); // Move to the next row
+              base = pokemonData[i].PokiHeight * baseHeight;
+            }
 
-              xCoord += size + padding;
+            if (yCoord + starty + size > maxHeight || yCoord + starty < 0) {
+              // Stop drawing if it exceeds the canvas height
+              break;
+            }
 
-              if (xCoord + size > canvas.width) {
-                xCoord = padding;
-                yCoord += size + padding;
-              }
-            };
+            ctx.drawImage(
+              img,
+              xCoord + startx,
+              starty + base + yCoord - size,
+              size,
+              size,
+            );
 
-            img.onerror = () => {
-              console.error("Failed to load image:", pokemonData[i].PokeSprite);
-            };
+            padding = (size * getRandomInt(xOffsetMin, xOffsetMax)) / 1000;
+            xCoord += size + padding;
           }
         }
       }
@@ -60,7 +109,7 @@ const Canvas: React.FC = () => {
     fetchAndDrawPokemon();
   }, []);
 
-  return <canvas ref={canvasRef} width={500} height={500}></canvas>;
+  return <canvas ref={canvasRef} width={0} height={0}></canvas>;
 };
 
 const getPokemon = async (id: number) => {
@@ -73,8 +122,7 @@ const getPokemon = async (id: number) => {
       Pokiname: pokemon.name,
       PokiHeight: pokemon.height,
       PokeSprite:
-        pokemon.sprites.versions["generation-v"]["black-white"].animated
-          .front_default,
+        pokemon.sprites.versions["generation-v"]["black-white"].front_default,
     };
   } catch (error) {
     console.error("Error fetching data:", error);
