@@ -15,7 +15,7 @@ const Canvas: React.FC = () => {
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.fillStyle = "#fdffaf";
-          const background = new Image();
+          /*const background = new Image();
           background.src =
             "https://opengameart.org/sites/default/files/big%20ol%20ssss_0.png";
           background.onload = () => {
@@ -26,7 +26,7 @@ const Canvas: React.FC = () => {
               window.innerWidth,
               window.innerHeight,
             );
-          };
+            };*/
 
           const pokemonData: {
             Pokiname: string;
@@ -36,7 +36,7 @@ const Canvas: React.FC = () => {
           }[] = [];
 
           // Fetch Pokémon data and preload images
-          for (let i = 0; i < 50; i++) {
+          for (let i = 0; i < 20; i++) {
             const data = await getPokemon(getRandomInt(1, 600));
             if (data) {
               data.PokiHeight = Math.max(10, Math.min(data.PokiHeight, 20));
@@ -82,7 +82,7 @@ const Canvas: React.FC = () => {
             // Ensure xCoord and yCoord stay within canvas bounds
             if (xCoord + startx + size > maxWidth || xCoord + startx < 0) {
               xCoord = padding;
-              yCoord += size + getRandomInt(10, 20); // Move to the next row
+              yCoord += size / 2 + getRandomInt(1, 5); // Move to the next row
               base = pokemonData[i].PokiHeight * baseHeight;
             }
 
