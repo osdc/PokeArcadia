@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import axios from "axios";
+
 const baseHeight = 10;
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -17,28 +18,35 @@ const Canvas: React.FC = () => {
           ctx.fillRect(0, 0, canvas.width, canvas.height);
 
           const pokemonData: object[] = [];
-          for (let i = 0; i < 100; i++) {
+          for (let i = 0; i < 40; i++) {
             const data = await getPokemon(getRandomInt(1, 600));
             if (data) {
               if (data.PokiHeight > 20) data.PokiHeight = 20;
+              else if (data.PokiHeight < 8) data.PokiHeight = 8;
               pokemonData.push(data);
             }
           }
           pokemonData.sort((a, b) => b.PokiHeight - a.PokiHeight);
+
+          const padding = -1;
+          const cols = Math.floor((canvas.width - padding) / (baseHeight * 20));
+          let xCoord = padding;
+          let yCoord = padding;
+
           for (let i = 0; i < pokemonData.length; i++) {
-            console.log(pokemonData[i].PokiHeight);
             const img = new Image();
             img.src = pokemonData[i].PokeSprite;
 
             img.onload = () => {
-              // Draw the image only after it has loaded
-              ctx.drawImage(
-                img,
-                getRandomInt(0, side),
-                getRandomInt(0, side),
-                baseHeight * pokemonData[i].PokiHeight,
-                baseHeight * pokemonData[i].PokiHeight,
-              );
+              const size = baseHeight * pokemonData[i].PokiHeight;
+              ctx.drawImage(img, xCoord, yCoord, size, size);
+
+              xCoord += size + padding;
+
+              if (xCoord + size > canvas.width) {
+                xCoord = padding;
+                yCoord += size + padding;
+              }
             };
 
             img.onerror = () => {
