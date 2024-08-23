@@ -7,7 +7,6 @@ const Home = () => {
       <button className="m-10 p-2 bg-blue-500 text-white rounded-lg">
         <Link to='/test'>Test</Link>
       </button>
-      <Canvas />
     </div>
   );
 }
