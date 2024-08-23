@@ -19,8 +19,8 @@ app.get('/', (req: Request, res: Response) => {
       return;
     }
 
-    // Array to hold numbers read from files
-    const numbers: number[] = [];
+    // Array to hold the objects with number and name
+    const users: { number: number; name: string }[] = [];
 
     // Iterate through all files
     files.forEach((file) => {
@@ -28,16 +28,21 @@ app.get('/', (req: Request, res: Response) => {
 
       // Read the content of each file
       const data = fs.readFileSync(filePath, 'utf8');
-      const number = parseInt(data, 10);
       
-      // Check if the data is a valid number before adding to array
-      if (!isNaN(number)) {
-        numbers.push(number);
+      // Split the content by the comma
+      const [numberStr, name] = data.split(',').map(item => item.trim());
+      
+      // Parse the number
+      const number = parseInt(numberStr, 10);
+      
+      // Check if the data is valid before adding to the array
+      if (!isNaN(number) && name) {
+        users.push({ number, name });
       }
     });
 
-    console.log(numbers); // This will log the array of numbers
-    res.json({ numbers }); // Send the array as JSON to the frontend
+    console.log(users); // This will log the array of objects
+    res.json({ userPokemons: users }); // Send the array as JSON to the frontend
   });
 });
 
