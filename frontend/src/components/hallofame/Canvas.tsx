@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import axios from "axios";
-
+import getPokemon from "./utils/pokeAPI";
+import { getRandomInt } from "./utils/misc";
 const baseHeight = 10;
 
 const Canvas: React.FC = () => {
@@ -15,18 +15,6 @@ const Canvas: React.FC = () => {
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.fillStyle = "#fdffaf";
-          /*const background = new Image();
-          background.src =
-            "https://opengameart.org/sites/default/files/big%20ol%20ssss_0.png";
-          background.onload = () => {
-            ctx.drawImage(
-              background,
-              0,
-              0,
-              window.innerWidth,
-              window.innerHeight,
-            );
-            };*/
 
           const pokemonData: {
             Pokiname: string;
@@ -110,28 +98,6 @@ const Canvas: React.FC = () => {
   }, []);
 
   return <canvas ref={canvasRef} width={0} height={0}></canvas>;
-};
-
-const getPokemon = async (id: number) => {
-  try {
-    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}/`, {
-      timeout: 5000,
-    });
-    const pokemon = res.data;
-    return {
-      Pokiname: pokemon.name,
-      PokiHeight: pokemon.height,
-      PokeSprite:
-        pokemon.sprites.versions["generation-v"]["black-white"].front_default,
-    };
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    return null;
-  }
-};
-
-export const getRandomInt = (min: number, max: number): number => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 export default Canvas;
