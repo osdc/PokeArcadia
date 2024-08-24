@@ -1,26 +1,21 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RootLayout from './layout/RootLayout';
+import RootLayout from "./layout/RootLayout";
 import Home from "./components/home/Home";
 import Test from "./components/test/Test";
-import Canvas from "./components/home/Canvas";
+import HallOFame from "./components/hallofame/HallOFame";
 const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
 
     // errorElement: <ErrorPage />,
-    
-    
-    children:[
+
+    children: [
       { index: true, Component: Home },
       { path: "/test", Component: Test },
-      { path: "/canvas", Component: Canvas} 
-      
-      
+      { path: "/hallofame", Component: HallOFame },
     ],
   },
-
-  
 ]);
 
 export default function App() {
