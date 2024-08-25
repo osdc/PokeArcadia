@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import getPokemon from "./utils/pokeAPI";
 import { getRandomInt } from "./utils/misc";
 const baseHeight = 10;
-
+let side: number;
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -10,12 +10,17 @@ const Canvas: React.FC = () => {
     const fetchAndDrawPokemon = async () => {
       const canvas = canvasRef.current;
       if (canvas) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        side =
+          window.innerHeight < window.innerWidth
+            ? window.innerHeight
+            : window.innerWidth;
+        side *= 4 / 5;
+        canvas.width = side;
+        canvas.height = side;
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.fillStyle = "#fdffaf";
-
+          ctx.fillRect(0, 0, side, side);
           const pokemonData: {
             Pokiname: string;
             PokiHeight: number;
@@ -46,10 +51,7 @@ const Canvas: React.FC = () => {
           const maxWidth = canvas.width;
           const maxHeight = canvas.height;
 
-          const [startx, starty] = [
-            window.innerWidth / 10,
-            window.innerHeight / 8,
-          ];
+          const [startx, starty] = [side / 10, side / 8];
 
           // Sort Pokémon by natural image height in descending order
           pokemonData.sort((a, b) => b.PokiHeight - a.PokiHeight);
