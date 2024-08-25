@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import getPokemon from "./utils/pokeAPI";
 import { getRandomInt } from "./utils/misc";
-const baseHeight = 10;
+let scaleFactor = 1;
+let maxX = 0;
 let side: number;
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -15,6 +16,7 @@ const Canvas: React.FC = () => {
             ? window.innerHeight
             : window.innerWidth;
         side *= 4 / 5;
+        let sum = 0;
         canvas.width = side;
         canvas.height = side;
         const ctx = canvas.getContext("2d");
@@ -29,7 +31,7 @@ const Canvas: React.FC = () => {
           }[] = [];
 
           // Fetch Pokémon data and preload images
-          for (let i = 0; i < 20; i++) {
+          for (let i = 0; i < 5; i++) {
             const data = await getPokemon(getRandomInt(1, 600));
             if (data) {
               data.PokiHeight = Math.max(10, Math.min(data.PokiHeight, 20));
@@ -45,52 +47,61 @@ const Canvas: React.FC = () => {
               });
 
               pokemonData.push({ ...data, img });
+              ctx.fillStyle = "#fdffaf";
+              ctx.fillRect(20, side - 40, side, side);
+              ctx.font = "20px Roboto";
+              ctx.fillStyle = "black";
+              sum += data.PokiHeight;
+              ctx.fillText(
+                `Generated ${pokemonData[i].Pokiname}(${19 - i})`,
+                20,
+                side - 20,
+              );
             }
           }
-
-          const maxWidth = canvas.width;
-          const maxHeight = canvas.height;
-
-          const [startx, starty] = [side / 10, side / 8];
-
-          // Sort Pokémon by natural image height in descending order
+          const estimatedSide = Math.sqrt(sum);
+          console.log(estimatedSide);
+          //Now we have the Pokemon Array
+          //Let us sort it based on heights, in descending order
           pokemonData.sort((a, b) => b.PokiHeight - a.PokiHeight);
-
-          // Set up coordinates and padding
-          let padding = 10;
-          const xOffsetMin = -500;
-          const xOffsetMax = 1500;
-          let xCoord = padding;
-          let yCoord = padding;
-          let base: number = pokemonData[0].PokiHeight * baseHeight;
-
-          // Draw each Pokémon on the canvas
+          //Now we will make an array of coordinates
+          const coords: { xs: number; ys: number; xe: number; ye: number }[] =
+            [];
+          let x = 0,
+            y = 0;
+          let max = pokemonData[0].PokiHeight;
           for (let i = 0; i < pokemonData.length; i++) {
-            const { img, PokiHeight } = pokemonData[i];
-            const size = baseHeight * PokiHeight;
+            const temp = {
+              xs: x,
+              ys: y + (max - pokemonData[i].PokiHeight),
+              xe: x + pokemonData[i].PokiHeight,
+              ye: y + max,
+            };
+            if (temp.xe > maxX) {
+              maxX = temp.xe;
+            }
+            x += (pokemonData[i].PokiHeight * getRandomInt(3, 8)) / 10;
 
-            // Ensure xCoord and yCoord stay within canvas bounds
-            if (xCoord + startx + size > maxWidth || xCoord + startx < 0) {
-              xCoord = padding;
-              yCoord += size / 2 + getRandomInt(1, 5); // Move to the next row
-              base = pokemonData[i].PokiHeight * baseHeight;
+            if (x > estimatedSide * 2) {
+              x = 0;
+              y += max * 0.6;
+              max = pokemonData[i].PokiHeight;
             }
 
-            if (yCoord + starty + size > maxHeight || yCoord + starty < 0) {
-              // Stop drawing if it exceeds the canvas height
-              break;
-            }
+            coords.push(temp);
+          }
+          scaleFactor = canvas.width / maxX;
+          //console.log(coords);
 
+          //This is for displaying the pokemon
+          for (let i = 0; i < pokemonData.length; i++) {
             ctx.drawImage(
-              img,
-              xCoord + startx,
-              starty + base + yCoord - size,
-              size,
-              size,
+              pokemonData[i].img,
+              coords[i].xs * scaleFactor,
+              coords[i].ys * scaleFactor,
+              pokemonData[i].PokiHeight * scaleFactor,
+              pokemonData[i].PokiHeight * scaleFactor,
             );
-
-            padding = (size * getRandomInt(xOffsetMin, xOffsetMax)) / 1000;
-            xCoord += size + padding;
           }
         }
       }
