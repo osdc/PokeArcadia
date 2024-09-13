@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
-import getPokemon from "./utils/pokeAPI";
 import { getRandomInt } from "./utils/misc";
+import { fetchPokemonData } from "./fetchPokemonData";
+
 let scaleFactor = 1;
 let maxX = 0;
 let side: number;
+
 const Canvas: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -26,47 +28,46 @@ const Canvas: React.FC = () => {
           const pokemonData: {
             Pokiname: string;
             PokiHeight: number;
-            PokeSprite: string;
+            PokiSprite: string;
             img: HTMLImageElement;
           }[] = [];
 
-          // Fetch Pokémon data and preload images
-          for (let i = 0; i < 5; i++) {
-            const data = await getPokemon(getRandomInt(1, 600));
-            if (data) {
-              data.PokiHeight = Math.max(10, Math.min(data.PokiHeight, 20));
+          // Fetch Pokémon data
+          const pokemons = await fetchPokemonData();
+          console.log("The array of objects is: ", pokemons);
 
-              const img = new Image();
-              img.src = data.PokeSprite;
+          // Preload Pokémon images using Promise.all
+          await Promise.all(
+            pokemons.map(async (pokemon) => {
+              if (pokemon) {
+                // Ensure Pokémon height is within bounds
+                pokemon.PokiHeight = Math.max(10, Math.min(pokemon.PokiHeight, 20));
 
-              // Wait for the image to load
-              await new Promise((resolve, reject) => {
-                img.onload = () => resolve(null);
-                img.onerror = () =>
-                  reject(`Failed to load image: ${data.PokeSprite}`);
-              });
+                const img = new Image();
+                img.src = pokemon.PokiSprite;
 
-              pokemonData.push({ ...data, img });
-              ctx.fillStyle = "#fdffaf";
-              ctx.fillRect(20, side - 40, side, side);
-              ctx.font = "20px Roboto";
-              ctx.fillStyle = "black";
-              sum += data.PokiHeight;
-              ctx.fillText(
-                `Generated ${pokemonData[i].Pokiname}(${19 - i})`,
-                20,
-                side - 20,
-              );
-            }
-          }
+                // Wait for the image to load
+                await new Promise((resolve, reject) => {
+                  img.onload = () => resolve(null);
+                  img.onerror = () => reject(`Failed to load image: ${pokemon.PokiSprite}`);
+                });
+
+                pokemonData.push({ ...pokemon, img });
+                sum += pokemon.PokiHeight;
+              }
+            })
+          );
+
+          console.log("Pokemons is: ", pokemons);
+
           const estimatedSide = Math.sqrt(sum);
-          console.log(estimatedSide);
-          //Now we have the Pokemon Array
-          //Let us sort it based on heights, in descending order
+          console.log("Estimated side: ", estimatedSide);
+
+          // Sort the Pokémon data based on height (descending order)
           pokemonData.sort((a, b) => b.PokiHeight - a.PokiHeight);
-          //Now we will make an array of coordinates
-          const coords: { xs: number; ys: number; xe: number; ye: number }[] =
-            [];
+
+          // Calculate coordinates for each Pokémon
+          const coords: { xs: number; ys: number; xe: number; ye: number }[] = [];
           let x = 0,
             y = 0;
           let max = pokemonData[0].PokiHeight;
@@ -90,17 +91,17 @@ const Canvas: React.FC = () => {
 
             coords.push(temp);
           }
-          scaleFactor = canvas.width / maxX;
-          //console.log(coords);
 
-          //This is for displaying the pokemon
+          scaleFactor = canvas.width / maxX;
+
+          // Draw Pokémon on the canvas
           for (let i = 0; i < pokemonData.length; i++) {
             ctx.drawImage(
               pokemonData[i].img,
               coords[i].xs * scaleFactor,
               coords[i].ys * scaleFactor,
               pokemonData[i].PokiHeight * scaleFactor,
-              pokemonData[i].PokiHeight * scaleFactor,
+              pokemonData[i].PokiHeight * scaleFactor
             );
           }
         }
