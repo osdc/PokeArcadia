@@ -40,7 +40,7 @@ jobs:
 
       - name: Merge pull request
         if: steps.check-changes.outputs.new_files_only == 'true'
-        uses: peter-evans/merge-pull-request@v3
+        uses: akshithere/PokeArcadia
         with:
           merge-method: merge
           commit-message: "Automatically merging PR that only adds new files to /backend/Entries"
