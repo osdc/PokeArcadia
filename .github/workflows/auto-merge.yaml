@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository content
-        uses: actions/checkout@v2
+        uses: ./github/workflows
 
       - name: Check if only new files are added to /backend/Entries
         id: check-changes
