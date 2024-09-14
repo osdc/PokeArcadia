@@ -24,18 +24,14 @@ const Canvas: React.FC = () => {
       if (videoCanvas && imagesCanvas && video) {
         const videoCtx = videoCanvas.getContext("2d");
         const imagesCtx = imagesCanvas.getContext("2d");
-        side =
-          window.innerHeight < window.innerWidth
-            ? window.innerHeight
-            : window.innerWidth;
+        side = window.innerHeight;
 
         let sum = 0;
-        videoCanvas.width = (window.innerWidth * 9) / 10;
+        videoCanvas.width = (window.innerHeight * 2 * 9) / 10;
         videoCanvas.height = (window.innerHeight * 9) / 10;
         imagesCanvas.width = videoCanvas.width;
         imagesCanvas.height = videoCanvas.height;
         side = videoCanvas.height * 0.476;
-
         // Draw the gba image on both canvases
         const imga = new Image();
         imga.src = gba;
