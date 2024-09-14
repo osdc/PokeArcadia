@@ -3,7 +3,7 @@ import getPokemon from "./utils/pokeAPI";
 import { getRandomInt } from "./utils/misc";
 import gba from "/gba.png";
 import introVideo from "/intro.mp4"; // Path to the intro video
-
+import { fetchPokemonData } from "./fetchPokemonData";
 let scaleFactor = 1;
 let maxX = 0;
 let maxY = 0;
@@ -96,26 +96,32 @@ const Canvas: React.FC = () => {
           PokeSprite: string;
           img: HTMLImageElement;
         }[] = [];
+        const pokemons = await fetchPokemonData();
+        console.log("Pokemon are", pokemons);
+        await Promise.all(
+          pokemons.map(async (pokemon) => {
+            if (pokemon) {
+              // Ensure Pokémon height is within bounds
+              pokemon.PokiHeight = Math.max(
+                10,
+                Math.min(pokemon.PokiHeight, 20),
+              );
 
-        for (let i = 0; i < 50; i++) {
-          const data = await getPokemon(getRandomInt(1, 600));
-          if (data) {
-            data.PokiHeight = Math.max(10, Math.min(data.PokiHeight, 20));
+              const img = new Image();
+              img.src = pokemon.PokiSprite;
 
-            const img = new Image();
-            img.src = data.PokeSprite;
+              // Wait for the image to load
+              await new Promise((resolve, reject) => {
+                img.onload = () => resolve(null);
+                img.onerror = () =>
+                  reject(`Failed to load image: ${pokemon.PokiSprite}`);
+              });
 
-            // Wait for the image to load
-            await new Promise((resolve, reject) => {
-              img.onload = () => resolve(null);
-              img.onerror = () =>
-                reject(`Failed to load image: ${data.PokeSprite}`);
-            });
-
-            pokemonData.push({ ...data, img });
-            sum += data.PokiHeight;
-          }
-        }
+              pokemonData.push({ ...pokemon, img });
+              sum += pokemon.PokiHeight;
+            }
+          }),
+        );
 
         // Once all Pokémon images have loaded, prepare to draw them
         const estimatedSide = Math.sqrt(sum / 0.671);
