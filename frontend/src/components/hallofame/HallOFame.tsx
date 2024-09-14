@@ -1,6 +1,14 @@
 import Canvas from "./Canvas";
+import "../../App.css"; // Import your CSS
+
 const HallOFame = () => {
-  return <Canvas />;
+  return (
+    <>
+      <div className="container">
+        <Canvas />
+      </div>
+    </>
+  );
 };
 
 export default HallOFame;
