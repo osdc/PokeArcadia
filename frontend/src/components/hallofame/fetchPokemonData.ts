@@ -7,6 +7,8 @@ export const fetchPokemonData = async () => {
         const response = await axios.get('http://localhost:3000/');
         const users = response.data.userPokemons;
 
+        console.log("users object is: ", users);
+
         for (let i = 0; i < users.length; i++) {
             const user = users[i]; 
             try {
