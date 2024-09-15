@@ -45,14 +45,8 @@ jobs:
 
       - name: Merge pull request
         if: steps.check-changes.outputs.new_files_only == 'true'
-        uses: actions/github-script@v6
+        uses: "peter-evans/merge-pull-request@v2"
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const { context, github } = require('@actions/github');
-            await github.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              merge_method: "merge",
-            });
+          token: ${{ secrets.GITHUB_TOKEN }}  # Make sure you are using the correct token
+          merge-method: merge
+          commit-message: "Automatically merging PR that only adds new files to /backend/Entries"
