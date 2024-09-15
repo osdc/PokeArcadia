@@ -19,10 +19,14 @@ const Home = () => {
     >
       {/* Images scattered around */}
       <div className="flex flex-col items-center justify-center absolute inset-0 pointer-events-none">
-      <div className="">
-      <h1 className="text-white text-4xl font-earlyGameboy mb-4">OSDC PRESENTS</h1>
-      <h1 className="text-white text-6xl font-flippsRegular mb-4">PokeArcadia</h1>
-      </div>
+        <div className="">
+          <h1 className="text-white text-4xl font-earlyGameboy mb-4 gba">
+            OSDC PRESENTS
+          </h1>
+          <h1 className="text-white text-6xl font-flippsRegular mb-4 gba">
+            PokeArcadia
+          </h1>
+        </div>
         {pokemonImages.map((image, index) => (
           <img
             key={index}
@@ -30,7 +34,7 @@ const Home = () => {
             alt={`Pokemon ${index + 1}`}
             className="w-24 h-24 m-2 opacity-75 transition-transform animate-pokemon"
             style={{
-              position: 'absolute',
+              position: "absolute",
               left: `${Math.random() * 90}vw`,
               top: `${Math.random() * 90}vh`,
               zIndex: 1,
