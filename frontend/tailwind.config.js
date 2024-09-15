@@ -5,7 +5,12 @@ export default {
     safelist: ["fr"],
   },
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'earlyGameboy': ['Early Gameboy', 'cursive'],
+        'flippsRegular': ['Flipps Regular', 'cursive']
+      }
+    },
   },
   plugins: [],
 };
