@@ -1,4 +1,4 @@
-import background from "../../../public/background.jpg";
+import background from "../../../public/newBackground 1.png";
 import p1 from "../../../public/p1.png";
 import p2 from "../../../public/p2.png";
 import p3 from "../../../public/p3.png";
@@ -13,7 +13,7 @@ const pokemonImages = [p1, p2, p3, p4, p5, p6, p7, p8];
 const Home = () => {
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex flex-col items-center relative overflow-hidden"
+      className="min-h-screen bg-repeat-x bg-center bg-[length:auto_100%] flex flex-col items-center relative overflow-hidden"
       style={{ backgroundImage: `url(${background})` }}
     >
       <p className="text-white gba text-xl mt-5">OSDC Presents</p>
