@@ -4,7 +4,7 @@ export const dataArray: {
   module: { tip: string; imageData: { src: string | null; large: boolean } }[];
 }[] = [
   {
-    name: "Introduction To Open Source",
+    name: "Introduction",
     index: 0,
     module: [
       {
@@ -38,7 +38,7 @@ export const dataArray: {
     ],
   },
   {
-    name: "Version Control",
+    name: "VersionControl",
     index: 1,
     module: [
       {
@@ -68,7 +68,7 @@ export const dataArray: {
     ],
   },
   {
-    name: "Working with the terminal",
+    name: "TheTerminal",
     index: 2,
     module: [
       {
@@ -219,6 +219,114 @@ export const dataArray: {
       },
       {
         tip: "If you get any merge conflicts, don’t worry! It just means Git wants you to decide how to combine changes. You can handle it!",
+        imageData: { src: null, large: false },
+      },
+    ],
+  },
+  {
+    name: "GitHub",
+    index: 4,
+    module: [
+      {
+        tip: "Alright, now that you’ve got the local stuff down, let’s explore GitHub—where collaboration happens!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "First, let's talk about forking. Forking is like making your own copy of someone else’s project.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Head over to the project you want to contribute to on GitHub and click that 'Fork' button at the top.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Congrats, you've just created your own version of the project under your account!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Now, we need to get it onto your local machine. Time to clone!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Go back to your terminal and type 'git clone <repo-link>' using the link from your forked project.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Boom! You've just cloned the project to your local machine. It’s ready for you to tinker with.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Make changes, add features, fix bugs—anything you want!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Once you're happy with your changes, let’s commit them locally, just like before. 'git commit -m “Describe your changes here”.'",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Push your changes to *your* forked repo with 'git push origin <branch-name>'.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Ready to contribute to the main project? Let’s create a Pull Request (PR).",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Go to your forked repo on GitHub. You’ll see a button to 'Compare & pull request.' Click it!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Give a nice, clear description of what changes you made and why.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "When you're ready, submit the pull request!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Now the project maintainer can review your work and, if everything looks good, merge it into the main project.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Keep an eye on the PR for any feedback or changes you might need to make.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "You’re well on your way to becoming a pro contributor!",
+        imageData: { src: null, large: false },
+      },
+    ],
+  },
+  {
+    name: "Capstone",
+    index: 5,
+    module: [
+      {
+        tip: "Let us put your skills to the test!",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Head over to GitHub, fork this repository.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Now make a different branch.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Go to backend/Entries.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "And add a file there.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Now add, commit, and push your changes.",
+        imageData: { src: null, large: false },
+      },
+      {
+        tip: "Go back to the website and now contribute to the main site.",
         imageData: { src: null, large: false },
       },
     ],
