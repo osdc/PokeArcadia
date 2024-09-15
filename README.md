@@ -21,10 +21,10 @@ PokeArcadia is a fun game where you get to work with a Pokémon-themed project. 
 Here's a quick overview of the project structure:
 
 PokeArcadia/
- │ ├── frontend/ # The frontend of the game
-   │ ├── backend/ # The backend where you will make your changes
-    │ └── Entries/ # The folder where you will add your .txt files
-     │ └── README.md # This file!
+ │ ├── frontend/ # The frontend of the game <br />
+   │ ├── backend/ # The backend where you will make your changes <br />
+    │ └── Entries/ # The folder where you will add your .txt files <br />
+     │ └── README.md # This file! <br />
 
      
 ## How to Contribute
@@ -36,9 +36,9 @@ To contribute to PokeArcadia, you'll be adding your own .txt file to the `backen
 When you add a new `.txt` file to the `backend/Entries/` folder, make sure it follows this format:
 
 PokeID, YourName
-# examples ->
--25, Akshit
--36, Swati
+# Examples ->
+-25, Akshit <br />
+-36, Swati <br />
 
 
 This file format is used to record the Pokémon ID and the name of the contributor.
