@@ -1,0 +1,56 @@
+name: Auto-merge Entries PRs
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository content
+        uses: actions/checkout@v3
+
+      - name: Check if only new files are added to /backend/Entries
+        id: check-changes
+        run: |
+          # Get the list of changed files in the PR
+          changed_files=$(git diff --name-status origin/main)
+
+          # Initialize flag
+          new_files_only=true
+
+          # Iterate over changed files
+          while IFS= read -r line; do
+            status=$(echo $line | cut -f1)
+            file=$(echo $line | cut -f2)
+
+            # Check if the file is not in the /backend/Entries folder or is not a new file
+            if [[ "$file" != backend/Entries/* ]] || [[ "$status" != "A" ]]; then
+              new_files_only=false
+              break
+            fi
+          done <<< "$changed_files"
+
+          # Set output based on the check
+          echo "::set-output name=new_files_only::$new_files_only"
+
+      - name: Merge pull request
+        if: steps.check-changes.outputs.new_files_only == 'true'
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { Octokit } = require("@octokit/action");
+            const octokit = new Octokit();
+            const pull_number = context.payload.pull_request.number;
+
+            await octokit.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pull_number,
+              commit_title: "Auto-merged new files to /backend/Entries",
+              merge_method: "merge"
+            });
