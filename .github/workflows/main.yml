@@ -11,34 +11,48 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout repository content
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensures all branches are fetched
 
-      - name: Set up Git
-        run: git fetch origin main
+      - name: Fetch all branches
+        run: git fetch --all
 
-      - name: Get list of changed files
-        id: changes
+      - name: Check if only new files are added to /backend/Entries
+        id: check-changes
         run: |
+          # Get the list of changed files in the PR
           changed_files=$(git diff --name-status origin/main...HEAD)
-          echo "::set-output name=files::$changed_files"
 
-      - name: Check if only new files are added
-        id: check
-        run: |
+          # Initialize flags
           new_files_only=true
-          for file_status in $(echo "${{ steps.changes.outputs.files }}" | cut -f1); do
-            if [ "$file_status" != "A" ]; then
+
+          # Iterate over changed files
+          while IFS= read -r line; do
+            status=$(echo $line | cut -f1)
+            file=$(echo $line | cut -f2)
+
+            # Check if the file is not in the /backend/Entries folder or if it is not new
+            if [[ "$file" != backend/Entries/* ]] || [[ "$status" != "A" ]]; then
               new_files_only=false
+              break
             fi
-          done
+          done <<< "$changed_files"
+
+          # Set the output based on whether only new files were added
           echo "::set-output name=new_files_only::$new_files_only"
 
-      - name: Merge if valid
-        if: steps.check.outputs.new_files_only == 'true'
-        run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'actions@github.com'
-          git merge --no-ff origin/main --commit -m "Auto-merged by workflow"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Merge pull request
+        if: steps.check-changes.outputs.new_files_only == 'true'
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { context, github } = require('@actions/github');
+            await github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              merge_method: "merge",
+            });
