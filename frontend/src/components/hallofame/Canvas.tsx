@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getRandomInt } from "./utils/misc";
 import gba from "/gba.png";
-import introVideo from "/intro.mp4"; // Path to the intro video
 import { fetchPokemonData } from "./fetchPokemonData";
 let scaleFactor = 1;
 let maxX = 0;
@@ -151,9 +150,6 @@ const Canvas: React.FC = () => {
           (0.719 * imagesCanvas.width -
             (maxX * scaleFactor + 0.284 * imagesCanvas.width)) /
           2;
-
-        loaded = true;
-
         // Draw Pokémon images on the images canvas
         const drawPokemonImages = () => {
           if (imagesCtx) {
@@ -221,7 +217,7 @@ const Canvas: React.FC = () => {
       {!allAssetsLoaded && (
         <video
           ref={videoRef}
-          src={introVideo}
+          src="https://www.kapwing.com/videos/66e6c86940753aff5b18b834"
           style={{ display: "none" }}
           preload="auto"
           muted
