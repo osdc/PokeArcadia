@@ -11,42 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository content
+      - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Ensures all branches are fetched
 
-      - name: Fetch all branches
-        run: git fetch --all
+      - name: Set up Git
+        run: git fetch origin main
 
-      - name: Check if only new files are added to /backend/Entries
-        id: check-changes
+      - name: Get list of changed files
+        id: changes
         run: |
-          # Get the list of changed files in the PR
           changed_files=$(git diff --name-status origin/main...HEAD)
+          echo "::set-output name=files::$changed_files"
 
-          # Initialize flags
+      - name: Check if only new files are added
+        id: check
+        run: |
           new_files_only=true
-
-          # Iterate over changed files
-          while IFS= read -r line; do
-            status=$(echo $line | cut -f1)
-            file=$(echo $line | cut -f2)
-
-            # Check if the file is not in the /backend/Entries folder or if it is not new
-            if [[ "$file" != backend/Entries/* ]] || [[ "$status" != "A" ]]; then
+          for file_status in $(echo "${{ steps.changes.outputs.files }}" | cut -f1); do
+            if [ "$file_status" != "A" ]; then
               new_files_only=false
-              break
             fi
-          done <<< "$changed_files"
-
-          # Set the output based on whether only new files were added
+          done
           echo "::set-output name=new_files_only::$new_files_only"
 
-      - name: Merge pull request
-        if: steps.check-changes.outputs.new_files_only == 'true'
-        uses: "peter-evans/merge-pull-request@v2"
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}  # Make sure you are using the correct token
-          merge-method: merge
-          commit-message: "Automatically merging PR that only adds new files to /backend/Entries"
+      - name: Merge if valid
+        if: steps.check.outputs.new_files_only == 'true'
+        run: |
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'actions@github.com'
+          git merge --no-ff origin/main --commit -m "Auto-merged by workflow"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
