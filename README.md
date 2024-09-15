@@ -21,8 +21,7 @@ PokeArcadia is a fun game where you get to work with a Pokémon-themed project. 
 Here's a quick overview of the project structure:
 
 PokeArcadia/
- │ ├── frontend/
-  # The frontend of the game
+ │ ├── frontend/ # The frontend of the game
    │ ├── backend/ # The backend where you will make your changes
     │ └── Entries/ # The folder where you will add your .txt files
      │ └── README.md # This file!
