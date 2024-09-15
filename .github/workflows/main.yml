@@ -13,14 +13,19 @@ jobs:
     steps:
       - name: Checkout repository content
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Ensures all branches are fetched
+
+      - name: Fetch all branches
+        run: git fetch --all
 
       - name: Check if only new files are added to /backend/Entries
         id: check-changes
         run: |
           # Get the list of changed files in the PR
-          changed_files=$(git diff --name-status origin/main)
+          changed_files=$(git diff --name-status origin/main...HEAD)
 
-          # Initialize flag
+          # Initialize flags
           new_files_only=true
 
           # Iterate over changed files
@@ -28,29 +33,26 @@ jobs:
             status=$(echo $line | cut -f1)
             file=$(echo $line | cut -f2)
 
-            # Check if the file is not in the /backend/Entries folder or is not a new file
+            # Check if the file is not in the /backend/Entries folder or if it is not new
             if [[ "$file" != backend/Entries/* ]] || [[ "$status" != "A" ]]; then
               new_files_only=false
               break
             fi
           done <<< "$changed_files"
 
-          # Set output based on the check
+          # Set the output based on whether only new files were added
           echo "::set-output name=new_files_only::$new_files_only"
 
       - name: Merge pull request
         if: steps.check-changes.outputs.new_files_only == 'true'
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { Octokit } = require("@octokit/action");
-            const octokit = new Octokit();
-            const pull_number = context.payload.pull_request.number;
-
-            await octokit.pulls.merge({
+            const { context, github } = require('@actions/github');
+            await github.pulls.merge({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              pull_number: pull_number,
-              commit_title: "Auto-merged new files to /backend/Entries",
-              merge_method: "merge"
+              pull_number: context.payload.pull_request.number,
+              merge_method: "merge",
             });
