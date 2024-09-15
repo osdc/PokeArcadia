@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+    font-family: "GBAFont";
+    src: url("./assets/fonts/gba.ttf") format("truetype"); /* Update path if necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "FireRedScript";
+    src: url("./assets/fonts/poke.ttf") format("truetype"); /* Update path if necessary */
+    font-weight: normal;
+    font-style: normal;
+}
+
+.gba {
+    font-family: "GBAFont";
+}
+
+.fr {
+    font-family: "FireRedScript";
+}
