@@ -7,7 +7,6 @@ let scaleFactor = 1;
 let maxX = 0;
 let maxY = 0;
 let side: number;
-let loaded: boolean = false;
 
 const Canvas: React.FC = () => {
   const videoCanvasRef = useRef<HTMLCanvasElement>(null); // Video canvas
