@@ -1,4 +1,4 @@
-import background from "../../../public/homepage.png";
+import background from "../../../public/background.jpg";
 import p1 from "../../../public/p1.png";
 import p2 from "../../../public/p2.png";
 import p3 from "../../../public/p3.png";

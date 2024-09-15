@@ -22,3 +22,7 @@
 .fr {
     font-family: "FireRedScript";
 }
+
+.pixelated {
+    image-rendering: pixelated;
+}

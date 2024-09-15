@@ -31,7 +31,11 @@ const Tutorial = () => {
             <div className="h-full flex flex-col items-center justify-center w-1/2">
               <img src={imageSection} alt="Not Found" className="max-h-[50%]" />
             </div>
-            <img src={Oak} alt="Not Found" />
+            <img
+              className="pixelated"
+              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.pokemoncentral.it%2Fwiki%2Fd%2Fdf%2FHGSS_Oak.png"
+              alt="Not Found"
+            />
           </div>
           <div className="list flex flex-col items-center justify-center w-[25%]">
             <div className="border-black border-2 h-auto m-10 w-full mr-4 bg-[#756C80] rounded-md">
