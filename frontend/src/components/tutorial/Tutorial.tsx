@@ -37,9 +37,9 @@ const Tutorial = () => {
               alt="Not Found"
             />
           </div>
-          <div className="list flex flex-col items-center justify-center w-[25%]">
+          <div className="list flex flex-col items-center justify-center w-[30%] mr-10">
             <div className="border-black border-2 h-auto m-10 w-full mr-4 bg-[#756C80] rounded-md">
-              <div className="bg-white m-2 rounded-md w-auto h-auto mb-6 flex flex-col items-start">
+              <div className="bg-white m-2 rounded-md w-full h-auto mb-6 flex flex-col items-start">  {/* Add `overflow-auto` */}
                 {listModules}
                 <button></button>
               </div>
@@ -63,17 +63,22 @@ const Tutorial = () => {
             <div className="flex flex-col align-top justify-end">
               <button
                 onClick={prevTip}
-                className="gba bg-[#317370] p-2 text-8xl w-40 h-40 rounded-full hover:bg-[#317888] text-white m-5"
+                className="gba bg-[#317370] p-2 text-8xl w-40 h-40 rounded-full hover:bg-[#317888] text-white m-5 relative"
               >
-                B
+                <span className="absolute top-[52%] left-[51%] transform -translate-x-[35%] -translate-y-1/2">
+                  B
+                </span>
+
               </button>
             </div>
-            <div>
+            <div className="relative right-[7%]">
               <button
                 onClick={nextTip}
-                className="gba bg-[#317370] p-2 text-8xl w-40 h-40 rounded-full hover:bg-[#317888] text-white m-5"
+                className="gba bg-[#317370] p-2 text-8xl w-40 h-40 rounded-full hover:bg-[#317888] text-white m-5 relative mr-20"
               >
-                A
+                <span className="absolute top-[52%] left-[51%] transform -translate-x-[35%] -translate-y-1/2">
+                  A
+                </span>
               </button>
             </div>
           </div>
