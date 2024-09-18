@@ -9,7 +9,7 @@ export const dataArray: {
     module: [
       {
         tip: "Welcome to the world of Open Source!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Open_Source_Initiative.svg/800px-Open_Source_Initiative.svg.png', large: false },
       },
       {
         tip: "Think of Open Source as a big, friendly library where everyone can contribute.",
@@ -25,7 +25,7 @@ export const dataArray: {
       },
       {
         tip: "Projects like Linux and Firefox thrive on this collaborative spirit.",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Tux.svg/1200px-Tux.svg.png', large: false },
       },
       {
         tip: "It’s all about sharing knowledge and making software better together.",
@@ -43,7 +43,7 @@ export const dataArray: {
     module: [
       {
         tip: "Alright, let’s get into Version Control—it’s like having a magic time machine for your projects!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://cdn-icons-png.flaticon.com/512/5047/5047324.png', large: false },
       },
       {
         tip: "With Version Control, you can track every change made to your files, see who did what, and roll back to earlier versions if needed.",
@@ -51,7 +51,7 @@ export const dataArray: {
       },
       {
         tip: "Tools like Git are your best friends here. They help manage your project’s history and let you collaborate with others seamlessly.",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://avatars.githubusercontent.com/u/18133?s=280&v=4', large: false },
       },
       {
         tip: "Want to try something new without messing up your main project? Just create a branch and merge it back when you’re ready.",
@@ -73,7 +73,7 @@ export const dataArray: {
     module: [
       {
         tip: "Hey there! Ready to dive into some terminal magic?",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Terminalicon2.png/800px-Terminalicon2.png', large: false },
       },
       {
         tip: "As coders, the terminal’s our superpower—it makes everything fast and efficient!",
@@ -89,7 +89,7 @@ export const dataArray: {
       },
       {
         tip: "That’ll tell us where we are in the system—like finding our spot on the map!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Pwdkommando.png' ,large: false },
       },
       {
         tip: "By the way, we call folders “directories” here. Just Unix things!",
@@ -97,11 +97,11 @@ export const dataArray: {
       },
       {
         tip: 'Next up, let’s see what’s around us. Type "ls" to list all the files and directories hanging out here.',
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://lh6.googleusercontent.com/proxy/ukpZYzbiy6wg4CAdojNzVOR66RwxN8ALgejwooT5MshvTpNQ4PeYEzSAsCniRfqBaaTcow39gWSV3dy3WG-QsjxxTmgL86ohX2rygz-GgHUnYgEhp3GYgLCiFHMxO3zqYRCrynKvv38Yr9YK0w', large: false },
       },
       {
         tip: 'Want to create your own directory? Type "mkdir" followed by the name of your choice.',
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://d2jdgazzki9vjm.cloudfront.net/linux/images/linux-directories-mkdir-command1.png', large: false },
       },
       {
         tip: "Go on, try it! mkdir something cool!",
@@ -113,7 +113,7 @@ export const dataArray: {
       },
       {
         tip: 'Now, let’s head inside it. Use the "cd" command to enter your new directory.',
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://media.geeksforgeeks.org/wp-content/uploads/20240125114556/1--CD-Documents.webp', large: false },
       },
       {
         tip: 'Remember, you can always use "cd .." to go back if needed.',
@@ -139,7 +139,7 @@ export const dataArray: {
     module: [
       {
         tip: "Alright, now that we're comfy with the terminal, let’s take things up a notch—Git time!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://avatars.githubusercontent.com/u/18133?s=280&v=4', large: false },
       },
       {
         tip: "First things first, let's set up Git in your project folder.",
@@ -147,7 +147,7 @@ export const dataArray: {
       },
       {
         tip: 'Just type "git init" to initialize a Git repository here.',
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://media.geeksforgeeks.org/wp-content/uploads/20220915184539/GitInit1.jpg', large: false },
       },
       {
         tip: "Boom! Your project is now under version control. It’s like a checkpoint in a game—now we can track changes!",
@@ -159,7 +159,7 @@ export const dataArray: {
       },
       {
         tip: 'Type "git add <filename>" to add specific files or "git add ." to stage everything at once.',
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://javatpoint-images.s3.eu-north-1.amazonaws.com/tutorial/git/images/git-add.png', large: false },
       },
       {
         tip: "Now, we’ll commit our changes. Committing is like saving your progress.",
@@ -167,7 +167,7 @@ export const dataArray: {
       },
       {
         tip: "Type \"git commit -m 'First commit'\"",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://media.geeksforgeeks.org/wp-content/uploads/20220906212952/GitCommit1.jpg', large: false },
       },
       {
         tip: "Awesome! You've just made your first commit. Now the fun begins.",
@@ -229,7 +229,7 @@ export const dataArray: {
     module: [
       {
         tip: "Alright, now that you’ve got the local stuff down, let’s explore GitHub—where collaboration happens!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://miro.medium.com/v2/resize:fit:1400/1*biIy42Cn4Bnu0IkpUW1Zew.png', large: false },
       },
       {
         tip: "First, let's talk about forking. Forking is like making your own copy of someone else’s project.",
@@ -237,7 +237,7 @@ export const dataArray: {
       },
       {
         tip: "Head over to the project you want to contribute to on GitHub and click that 'Fork' button at the top.",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://www.git-tower.com/learn/media/pages/git/faq/github-fork-repository/f65e9ead55-1724238528/github-fork-button.png', large: false },
       },
       {
         tip: "Congrats, you've just created your own version of the project under your account!",
@@ -245,7 +245,7 @@ export const dataArray: {
       },
       {
         tip: "Now, we need to get it onto your local machine. Time to clone!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://www.jcchouinard.com/wp-content/uploads/2023/04/image-104.png', large: false },
       },
       {
         tip: "Go back to your terminal and type 'git clone <repo-link>' using the link from your forked project.",
@@ -265,7 +265,7 @@ export const dataArray: {
       },
       {
         tip: "Push your changes to *your* forked repo with 'git push origin <branch-name>'.",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://global.discourse-cdn.com/freecodecamp/original/3X/0/8/0878ff22f085511cbc7871363ad18f846df3b11a.png', large: false },
       },
       {
         tip: "Ready to contribute to the main project? Let’s create a Pull Request (PR).",
@@ -273,7 +273,7 @@ export const dataArray: {
       },
       {
         tip: "Go to your forked repo on GitHub. You’ll see a button to 'Compare & pull request.' Click it!",
-        imageData: { src: null, large: false },
+        imageData: { src: 'https://www.earthdatascience.org/images/earth-analytics/git-version-control/github-create-new-pull-request.png', large: false },
       },
       {
         tip: "Give a nice, clear description of what changes you made and why.",
