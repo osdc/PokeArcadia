@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import playIcon from "../../../public/playAudio.png"; // Adjust the path as needed
 import muteIcon from "../../../public/muteAudio.png"; // Adjust the path as needed
-import audioFile from "../../../public/PokeArcadiaBg.mp3"; // Adjust the path as needed
+import audioFile from "../../../public/BgMusic.mp3"; // Adjust the path as needed
 
 const AudioControl = () => {
   const [isPlaying, setIsPlaying] = useState(false);
