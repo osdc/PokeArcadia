@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { getRandomInt } from "./utils/misc";
 import gba from "/largeboy.png";
 import { fetchPokemonData } from "./fetchPokemonData";
-import "../../App.css";
 let scaleFactor = 1;
 let maxX = 0;
 let maxY = 0;
@@ -519,7 +518,10 @@ const Canvas: React.FC = () => {
         pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
       );
   }
-  function playClickAudio() {}
+  function playClickAudio() {
+    const sound = new Audio('\clickSoundEffect.wav')
+    sound.play();
+  }
   return (
     <div style={{ position: "relative", width: "90vw", height: "90vh" }}>
       {/* Canvas for video */}
