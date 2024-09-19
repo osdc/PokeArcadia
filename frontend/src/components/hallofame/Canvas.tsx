@@ -251,49 +251,62 @@ const Canvas: React.FC = () => {
 
     if (clicked(x, y, nb1, newRad)) {
       prevClick();
-      console.log(pokemonData[pokeIndex].Pokiname);
-    }
-    if (clicked(x, y, nb2, newRad)) {
+    } else if (clicked(x, y, nb2, newRad)) {
       nextClick();
-      console.log(pokemonData[pokeIndex].Pokiname);
-    }
-    if (clicked(x, y, nb3, newRad)) {
+    } else if (clicked(x, y, nb3, newRad)) {
       nextMode();
-    }
-    if (clicked(x, y, nb4, newRad)) {
+    } else if (clicked(x, y, nb4, newRad)) {
       prevMode();
     }
-    console.log(nb3);
-    console.log(x, y);
   };
+  // Assuming you are using React's useEffect for side effects
+
+  useEffect(() => {
+    updateScene(pokeIndex);
+  }, [pokeIndex]);
+
   function nextClick() {
-    if (pokeIndex != pokemonData.length - 1) {
-      setPokeIndex(pokeIndex + 1);
-    } else setPokeIndex(0);
-    if (mode == 0) standOut();
-    else if (mode == 1) standOutpp();
-    else normal();
+    setPokeIndex((prevPokeIndex) => {
+      const newIndex =
+        prevPokeIndex !== pokemonData.length - 1 ? prevPokeIndex + 1 : 0;
+      return newIndex;
+    });
   }
+
   function prevClick() {
-    if (pokeIndex != 0) {
-      setPokeIndex(pokeIndex - 1);
-    } else setPokeIndex(pokemonData.length - 1);
-    if (mode == 0) standOut();
-    else if (mode == 1) standOutpp();
+    setPokeIndex((prevPokeIndex) => {
+      const newIndex =
+        prevPokeIndex !== 0 ? prevPokeIndex - 1 : pokemonData.length - 1;
+      return newIndex;
+    });
+  }
+
+  // Other parts of the code remain the same
+
+  function updateScene(mod: number) {
+    if (mode === 0) standOut();
+    else if (mode === 1) standOutpp();
     else normal();
   }
   function prevMode() {
-    if (mode != -1) setMode(mode - 1);
-    else setMode(1);
-    changeMode();
+    setMode((prevMode) => {
+      const newMode = prevMode !== -1 ? prevMode - 1 : 1;
+      changeMode(newMode);
+      return newMode;
+    });
   }
+
   function nextMode() {
-    if (mode != 1) setMode(mode + 1);
-    else setMode(-1);
-    changeMode();
+    setMode((prevMode) => {
+      const newMode = prevMode !== 1 ? prevMode + 1 : -1;
+      changeMode(newMode);
+      return newMode;
+    });
   }
-  function changeMode() {
-    switch (mode) {
+
+  function changeMode(mod: number) {
+    console.log("The mode is ", mod);
+    switch (mod) {
       case 0:
         standOut();
         break;
@@ -401,49 +414,48 @@ const Canvas: React.FC = () => {
     return false;
   }
   function standOut() {
-    if (mode == 0) {
-      pointerCtx.fillStyle = "#A8C281";
-      pointerCtx.fillRect(
-        B * pointerCanvas.width,
-        pointerCanvas.height * C,
-        pointerCanvas.width * D,
-        pointerCanvas.height * A,
-      );
-      pointerCtx.globalAlpha = 0.5;
-      for (let i = 0; i < pokemonData.length; i++) {
-        if (i != pokeIndex)
-          pointerCtx.drawImage(
-            pokemonData[i].img,
-            coords[i].xs * scaleFactor + B * pointerCanvas.width + pushFactor,
-            coords[i].ys * scaleFactor + pointerCanvas.height * C,
-            pokemonData[i].PokiHeight * scaleFactor,
-            pokemonData[i].PokiHeight * scaleFactor,
-          );
-      }
-      pointerCtx.globalAlpha = 1;
-      if (pokeIndex > pokemonData.length / 2) {
+    console.log("Here");
+    pointerCtx.fillStyle = "#A8C281";
+    pointerCtx.fillRect(
+      B * pointerCanvas.width,
+      pointerCanvas.height * C,
+      pointerCanvas.width * D,
+      pointerCanvas.height * A,
+    );
+    pointerCtx.globalAlpha = 0.5;
+    for (let i = 0; i < pokemonData.length; i++) {
+      if (i != pokeIndex)
         pointerCtx.drawImage(
-          pokemonData[pokeIndex].img,
-          coords[pokeIndex].xs * scaleFactor +
-            B * pointerCanvas.width +
-            pushFactor,
-          coords[pokeIndex].ys * scaleFactor +
-            pointerCanvas.height * C -
-            pokemonData[pokeIndex].PokiHeight * scaleFactor,
-          pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
-          pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
-        );
-      } else
-        pointerCtx.drawImage(
-          pokemonData[pokeIndex].img,
-          coords[pokeIndex].xs * scaleFactor +
-            B * pointerCanvas.width +
-            pushFactor,
-          coords[pokeIndex].ys * scaleFactor + pointerCanvas.height * C,
-          pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
-          pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
+          pokemonData[i].img,
+          coords[i].xs * scaleFactor + B * pointerCanvas.width + pushFactor,
+          coords[i].ys * scaleFactor + pointerCanvas.height * C,
+          pokemonData[i].PokiHeight * scaleFactor,
+          pokemonData[i].PokiHeight * scaleFactor,
         );
     }
+    pointerCtx.globalAlpha = 1;
+    if (pokeIndex > pokemonData.length / 2) {
+      pointerCtx.drawImage(
+        pokemonData[pokeIndex].img,
+        coords[pokeIndex].xs * scaleFactor +
+          B * pointerCanvas.width +
+          pushFactor,
+        coords[pokeIndex].ys * scaleFactor +
+          pointerCanvas.height * C -
+          pokemonData[pokeIndex].PokiHeight * scaleFactor,
+        pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
+        pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
+      );
+    } else
+      pointerCtx.drawImage(
+        pokemonData[pokeIndex].img,
+        coords[pokeIndex].xs * scaleFactor +
+          B * pointerCanvas.width +
+          pushFactor,
+        coords[pokeIndex].ys * scaleFactor + pointerCanvas.height * C,
+        pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
+        pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
+      );
   }
   return (
     <div style={{ position: "relative", width: "90vw", height: "90vh" }}>
