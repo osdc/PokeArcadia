@@ -1,4 +1,0 @@
-Diana;
-ENRL8019;
-207;
-Just a random one-liner.;

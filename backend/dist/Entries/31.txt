@@ -1,4 +1,0 @@
-Charlie;
-ENRL7804;
-223;
-Learning is fun.;

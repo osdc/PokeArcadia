@@ -1,4 +1,0 @@
-Diana;
-ENRL5899;
-468;
-Hello world!;

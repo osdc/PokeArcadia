@@ -1,4 +1,0 @@
-George;
-ENRL6503;
-381;
-Just a random one-liner.;

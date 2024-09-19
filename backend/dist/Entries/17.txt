@@ -1,4 +1,0 @@
-Alice;
-ENRL1863;
-553;
-Hello world!;

@@ -1,4 +1,0 @@
-Bob;
-ENRL9540;
-106;
-Adventure awaits.;

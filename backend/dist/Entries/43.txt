@@ -1,4 +1,0 @@
-George;
-ENRL6153;
-93;
-Python is awesome!;

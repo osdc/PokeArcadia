@@ -1,4 +1,0 @@
-Alice;
-ENRL9583;
-73;
-Adventure awaits.;

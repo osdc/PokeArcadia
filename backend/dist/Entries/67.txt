@@ -1,4 +1,0 @@
-Edward;
-ENRL6682;
-243;
-Just a random one-liner.;

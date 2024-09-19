@@ -1,4 +1,0 @@
-Alice;
-ENRL5209;
-316;
-Dream big!;
