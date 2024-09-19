@@ -293,6 +293,7 @@ const Canvas: React.FC = () => {
   // Other parts of the code remain the same
 
   function updateScene(mod: number) {
+    console.log(mod);
     if (mode === 0) standOut();
     else if (mode === 1) standOutpp();
     else normal();
@@ -365,7 +366,14 @@ const Canvas: React.FC = () => {
     const lineHeight = 25; // Line height for multi-line text
 
     // Function to wrap text and center each line horizontally
-    function wrapTextCentered(context, text, maxWidth, xStart, y, lineHeight) {
+    function wrapTextCentered(
+      context: CanvasRenderingContext2D,
+      text: string,
+      maxWidth: number,
+      xStart: number,
+      y: number,
+      lineHeight: number,
+    ) {
       const words = text.split(" ");
       let line = "";
       let testLine;

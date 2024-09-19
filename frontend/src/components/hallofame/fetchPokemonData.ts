@@ -3,7 +3,7 @@ import axios from "axios";
 export const fetchPokemonData = async () => {
   const results = [];
   try {
-    const response = await axios.get("http://localhost:3000/");
+    const response = await axios.get("https://pokearcadia.onrender.com/");
     const users = response.data.userPokemons;
 
     console.log("users object is: ", users);
