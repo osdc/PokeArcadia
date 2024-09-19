@@ -328,7 +328,7 @@ const Canvas: React.FC = () => {
   }
   function standOutpp() {
     const pokemon = pokemonData[pokeIndex];
-
+    pointerCtx.imageSmoothingEnabled = false;
     // Left side color (green)
     pointerCtx.fillStyle = "#99EDC3";
     pointerCtx.fillRect(
