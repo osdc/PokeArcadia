@@ -27,27 +27,28 @@ app.get("/", (req, res) => {
     files.forEach((file) => {
       const filePath = node_path_1.default.join(directoryPath, file);
       // Read the content of each file
-      const data = node_fs_1.default.readFileSync(filePath, "utf8");
+     const data = node_fs_1.default.readFileSync(filePath, 'utf8');
 
-      // Split the content by line breaks first
-      const lines = data.split("\n").map((line) => line.trim());
+// Split the content by line breaks first
+const lines = data.split('\n').map(line => line.trim());
 
-      // Make sure there are enough lines for each field
-      if (lines.length >= 4) {
-        // Extract the data from each line
-        const name = lines[0].replace(";", "").trim(); // Remove the semicolon and trim
-        const enrl = lines[1].replace(";", "").trim(); // Remove the semicolon and trim
-        const numberStr = lines[2].replace(";", "").trim(); // Remove the semicolon and trim
-        const oneLiner = lines[3].replace(";", "").trim(); // Remove the semicolon and trim
+// Make sure there are enough lines for each field
+if (lines.length >= 4) {
+    // Extract the data from each line
+    const name = lines[0].replace(';', '').trim(); // Remove the semicolon and trim
+    const enrl = lines[1].replace(';', '').trim(); // Remove the semicolon and trim
+    const numberStr = lines[2].replace(';', '').trim(); // Remove the semicolon and trim
+    const oneLiner = lines[3].replace(';', '').trim(); // Remove the semicolon and trim
 
-        // Parse the number from the third line
-        const number = parseInt(numberStr, 10);
+    // Parse the number from the third line
+    const number = parseInt(numberStr, 10);
 
-        // Check if the data is valid before adding it to the array
-        if (!isNaN(number) && name && enrl && oneLiner) {
-          users.push({ name, enrl, number, oneLiner });
-        }
-      }
+    // Check if the data is valid before adding it to the array
+    if (!isNaN(number) && name && enrl && oneLiner) {
+        users.push({ name, enrl, number, oneLiner });
+    }
+}
+
     });
     console.log(users); // This will log the array of objects
     res.json({ userPokemons: users }); // Send the array as JSON to the frontend
