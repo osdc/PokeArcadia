@@ -10,7 +10,7 @@ app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
   const directoryPath = path.join(__dirname, '../Entries');
-
+console.log("The directory path is: ", directoryPath);
   // Read all files in the Entries directory
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
