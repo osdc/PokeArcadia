@@ -1,1 +1,4 @@
-247, Sampl
+Edward;
+ENRL6823;
+348;
+Learning is fun.;

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { getRandomInt } from "./utils/misc";
 import gba from "/largeboy.png";
 import { fetchPokemonData } from "./fetchPokemonData";
+import "../../App.css";
 let scaleFactor = 1;
 let maxX = 0;
 let maxY = 0;
@@ -9,6 +10,9 @@ let side: number;
 let pointerCanvas: HTMLCanvasElement;
 let pointerCtx: CanvasRenderingContext2D;
 const pokemonData: {
+  name: string;
+  enrl: string;
+  oneLiner: string;
   Pokiname: string;
   PokiHeight: number;
   PokeSprite: string;
@@ -322,70 +326,124 @@ const Canvas: React.FC = () => {
     }
   }
   function standOutpp() {
-    // Load the custom GBA font
-    pointerCtx.font = "14px gba"; // Setting the custom font
+    const pokemon = pokemonData[pokeIndex];
 
-    // Set a classic Pokémon color palette
-    pointerCtx.fillStyle = "#A8C281"; // Background box color (greenish tone)
+    // Left side color (green)
+    pointerCtx.fillStyle = "#99EDC3";
     pointerCtx.fillRect(
-      B * pointerCanvas.width, // X-position
-      pointerCanvas.height * C, // Y-position
-      pointerCanvas.width * D, // Width of box
-      pointerCanvas.height * A, // Height of box
+      B * pointerCanvas.width,
+      pointerCanvas.height * C,
+      (pointerCanvas.width * D * 2) / 3,
+      pointerCanvas.height * A,
     );
 
-    // Set stroke and text colors for more contrast
-    pointerCtx.strokeStyle = "black"; // Outline color
-    pointerCtx.fillStyle = "#FFFFFF"; // Text color (white for high contrast)
+    // Setting up the LHS
+    pointerCtx.fillStyle = "black";
 
-    // Drawing text (center-aligned for better look)
-    const textX = pointerCanvas.width * (B + 0.02); // X-position for text
-    const textYStart = pointerCanvas.height * (C + 0.05); // Y-start for the name
-    const lineSpacing = 20; // Spacing between lines of text
+    // Split the LHS height into two equal halves
+    const lhsWidth = (pointerCanvas.width * D * 2) / 3;
+    const lhsStartX = B * pointerCanvas.width;
+    const lhsHeight = pointerCanvas.height * A;
+    const lhsHalfHeight = lhsHeight / 2;
 
-    // Display the name "Peter" and roll number in the center of the box
-    pointerCtx.fillText(
-      "Name: Peter", // Example name
-      textX,
-      textYStart,
+    // Pokémon name (heading) - Centered in the top half of LHS
+    pointerCtx.font = "bold 30px roboto";
+    const pokemonName = pokemon.name.toUpperCase();
+    const nameTextWidth = pointerCtx.measureText(pokemonName).width;
+    const nameTextX = lhsStartX + (lhsWidth - nameTextWidth) / 2;
+
+    // Vertically center the heading within the top half
+    const nameTextY = pointerCanvas.height * C + lhsHalfHeight / 2 + 15; // 15 for slight vertical adjustment
+
+    // Draw Pokémon name
+    pointerCtx.fillText(pokemonName, nameTextX, nameTextY);
+
+    // Setting up the one-liner in the bottom half - Centered both vertically and horizontally
+    pointerCtx.font = "20px roboto";
+    const oneLiner = pokemon.oneLiner;
+    const lineHeight = 25; // Line height for multi-line text
+
+    // Function to wrap text and center each line horizontally
+    function wrapTextCentered(context, text, maxWidth, xStart, y, lineHeight) {
+      const words = text.split(" ");
+      let line = "";
+      let testLine;
+      let metrics;
+      let testWidth;
+
+      for (let n = 0; n < words.length; n++) {
+        testLine = line + words[n] + " ";
+        metrics = context.measureText(testLine);
+        testWidth = metrics.width;
+
+        if (testWidth > maxWidth && n > 0) {
+          const lineX =
+            xStart + (maxWidth - context.measureText(line).width) / 2; // Center each line horizontally
+          context.fillText(line, lineX, y);
+          line = words[n] + " ";
+          y += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+
+      const lineX = xStart + (maxWidth - context.measureText(line).width) / 2; // Center last line
+      context.fillText(line, lineX, y);
+    }
+
+    // Center the one-liner text within the bottom half of LHS
+    const maxTextWidth = lhsWidth - 20; // Slight margin for the text boundaries
+    const oneLinerX = lhsStartX;
+
+    // Vertically center the one-liner in the bottom half
+    const oneLinerY =
+      pointerCanvas.height * C + lhsHalfHeight + lhsHalfHeight / 2;
+
+    wrapTextCentered(
+      pointerCtx,
+      oneLiner,
+      maxTextWidth,
+      oneLinerX,
+      oneLinerY,
+      lineHeight,
     );
-    pointerCtx.fillText(
-      "Roll Number: Peter 123", // Example roll number
-      textX,
-      textYStart + lineSpacing,
+
+    // Right side color (blue-gray)
+    pointerCtx.fillStyle = "#B2C3D2";
+    pointerCtx.fillRect(
+      B * pointerCanvas.width + (pointerCanvas.width * D * 2) / 3 - 3,
+      pointerCanvas.height * C,
+      (pointerCanvas.width * D * 1) / 3,
+      pointerCanvas.height * A,
     );
 
-    // Drawing the Pokémon image (centered in the box)
-    const pokeImageX =
-      pointerCanvas.width * (B + 0.5) - pointerCanvas.width * D * 0.1; // Center X-position for image
-    const pokeImageY = pointerCanvas.height * (C + 0.15); // Y-position for image
-    const pokeImageWidth = pointerCanvas.width * D * 0.2; // Width of image
-    const pokeImageHeight = pointerCanvas.height * A * 0.5; // Height of image
-
+    // The Pokémon image
     pointerCtx.drawImage(
-      pokemonData[pokeIndex].img,
-      pokeImageX,
-      pokeImageY,
-      pokeImageWidth,
-      pokeImageHeight,
+      pokemon.img,
+      B * pointerCanvas.width + (pointerCanvas.width * D * 2) / 3,
+      pointerCanvas.height * C,
+      (pointerCanvas.width * D * 1) / 3,
+      (pointerCanvas.width * D * 1) / 3,
     );
 
-    // Adding more text for Pokémon's name, ID, and height (below the image)
-    pointerCtx.fillStyle = "#F8E030"; // Use classic Pokémon yellow for name and details
+    // Setting up the Pokémon name text on RHS
+    pointerCtx.fillStyle = "black";
+    pointerCtx.font = "30px roboto";
+
+    const pokemonRHSName = pokemon.Pokiname.toUpperCase();
+    const rhsWidth = (pointerCanvas.width * D * 1) / 3;
+    const textWidth = pointerCtx.measureText(pokemonRHSName).width;
+    const rhsStartX =
+      B * pointerCanvas.width + (pointerCanvas.width * D * 2) / 3;
+    const textX = rhsStartX + (rhsWidth - textWidth) / 2;
+
+    // Draw the Pokémon name centered on RHS
     pointerCtx.fillText(
-      "Pokémon: " + pokemonData[pokeIndex].Pokiname,
+      pokemonRHSName,
       textX,
-      pokeImageY + pokeImageHeight + lineSpacing, // Below the image
-    );
-    // pointerCtx.fillText(
-    //  "ID: " + pokemonData[pokeIndex], // Example PokeID
-    //  textX,
-    //  pokeImageY + pokeImageHeight + 2 * lineSpacing, // Next line below the name
-    //);
-    pointerCtx.fillText(
-      "Height: " + pokemonData[pokeIndex].PokiHeight + "m", // Example height
-      textX,
-      pokeImageY + pokeImageHeight + 3 * lineSpacing, // Next line below the ID
+      pointerCanvas.height * C +
+        (pointerCanvas.width * D * 1) / 3 +
+        (pointerCanvas.width * D * 1) / 10,
     );
   }
 
