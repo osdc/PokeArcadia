@@ -9,8 +9,16 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
-  const directoryPath = path.join(__dirname, '../Entries');
-console.log("The directory path is: ", );
+  const directoryPath = path.resolve(__dirname, './Entries');
+  console.log("Resolved directory path:", directoryPath);
+
+  // Check if the directory exists
+  if (!fs.existsSync(directoryPath)) {
+    console.error('Directory does not exist');
+    res.status(500).send('Entries directory not found');
+    return;
+  }
+
   // Read all files in the Entries directory
   fs.readdir(directoryPath, (err, files) => {
     if (err) {
@@ -18,6 +26,9 @@ console.log("The directory path is: ", );
       res.status(500).send('Error reading directory');
       return;
     }
+
+    // Log the files found
+    console.log('Files found:', files);
 
     // Array to hold the objects with number and name
     const users: { number: number; name: string }[] = [];
