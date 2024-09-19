@@ -251,14 +251,16 @@ const Canvas: React.FC = () => {
     // Adjust the click coordinates relative to the canvas scale
     const x = ((e.clientX - rect.left) / rect.width) * pointerCanvas.width;
     const y = ((e.clientY - rect.top) / rect.height) * pointerCanvas.height;
-
-    if (clicked(x, y, nb1, newRad)) {
-      playClickAudio();
-      prevClick();
-    } else if (clicked(x, y, nb2, newRad)) {
-      playClickAudio();
-      nextClick();
-    } else if (clicked(x, y, nb3, newRad)) {
+    if (mode != -1) {
+      if (clicked(x, y, nb1, newRad)) {
+        playClickAudio();
+        prevClick();
+      } else if (clicked(x, y, nb2, newRad)) {
+        playClickAudio();
+        nextClick();
+      }
+    }
+    if (clicked(x, y, nb3, newRad)) {
       playClickAudio();
       nextMode();
     } else if (clicked(x, y, nb4, newRad)) {
@@ -483,7 +485,7 @@ const Canvas: React.FC = () => {
       pointerCanvas.width * D,
       pointerCanvas.height * A,
     );
-    pointerCtx.globalAlpha = 0.5;
+    pointerCtx.globalAlpha = 0.4;
     for (let i = 0; i < pokemonData.length; i++) {
       if (i != pokeIndex)
         pointerCtx.drawImage(
@@ -519,7 +521,7 @@ const Canvas: React.FC = () => {
       );
   }
   function playClickAudio() {
-    const sound = new Audio('\clickSoundEffect.wav')
+    const sound = new Audio("clickSoundEffect.wav");
     sound.play();
   }
   return (
