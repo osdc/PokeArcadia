@@ -1,1 +1,4 @@
-78, Sampl
+George;
+ENRL7838;
+411;
+Learning is fun.;

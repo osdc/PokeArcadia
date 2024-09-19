@@ -1,1 +1,4 @@
-95, Sampl
+Alice;
+ENRL9316;
+189;
+Learning is fun.;

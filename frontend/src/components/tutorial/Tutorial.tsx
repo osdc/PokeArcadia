@@ -61,7 +61,7 @@ const Tutorial = () => {
               </p>
             </div>
           </div>
-          <div className="list w-[25%] h-full flex flex-row  ">
+          <div className="lis w-[25%] h-full flex flex-row  ">
             <div className="flex flex-col align-top justify-end">
               <button
                 onClick={prevTip}
