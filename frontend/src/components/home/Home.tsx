@@ -7,6 +7,7 @@ import p5 from "../../../public/p5.png";
 import p6 from "../../../public/p6.png";
 import p7 from "../../../public/p7.png";
 import p8 from "../../../public/p8.png";
+import AudioControl from "../Audio/AudioPlayer";
 
 const pokemonImages = [p1, p2, p3, p4, p5, p6, p7, p8];
 
@@ -25,6 +26,7 @@ const Home = () => {
       <a href="/Tutorial" className="text-white gba text-xl">
         How to contribute
       </a>
+      <AudioControl/>
     </div>
   );
 };
