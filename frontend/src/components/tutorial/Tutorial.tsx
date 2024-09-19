@@ -29,7 +29,7 @@ const Tutorial = () => {
         <div className="flex flex-row h-[70%] w-full">
           <div className="oak flex w-[70%] flex-row m-5 justify-end">
             <div className="h-full flex flex-col items-center justify-center w-1/2">
-              <img src={imageSection} alt="Not Found" className="max-h-[50%]" />
+              <img src={imageSection} alt="" className="max-h-[50%]" />
             </div>
             <img
               className="pixelated"
@@ -39,7 +39,9 @@ const Tutorial = () => {
           </div>
           <div className="list flex flex-col items-center justify-center w-[30%] mr-10">
             <div className="border-black border-2 h-auto m-10 w-full mr-4 bg-[#756C80] rounded-md">
-              <div className="bg-white m-2 rounded-md w-full h-auto mb-6 flex flex-col items-start">  {/* Add `overflow-auto` */}
+              <div className="bg-white m-2 rounded-md w-full h-auto mb-6 flex flex-col items-start">
+                {" "}
+                {/* Add `overflow-auto` */}
                 {listModules}
                 <button></button>
               </div>
@@ -68,7 +70,6 @@ const Tutorial = () => {
                 <span className="absolute top-[52%] left-[51%] transform -translate-x-[35%] -translate-y-1/2">
                   B
                 </span>
-
               </button>
             </div>
             <div className="relative right-[7%]">

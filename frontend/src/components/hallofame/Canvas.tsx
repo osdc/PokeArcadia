@@ -250,12 +250,16 @@ const Canvas: React.FC = () => {
     const y = ((e.clientY - rect.top) / rect.height) * pointerCanvas.height;
 
     if (clicked(x, y, nb1, newRad)) {
+      playClickAudio();
       prevClick();
     } else if (clicked(x, y, nb2, newRad)) {
+      playClickAudio();
       nextClick();
     } else if (clicked(x, y, nb3, newRad)) {
+      playClickAudio();
       nextMode();
     } else if (clicked(x, y, nb4, newRad)) {
+      playClickAudio();
       prevMode();
     }
   };
@@ -457,6 +461,7 @@ const Canvas: React.FC = () => {
         pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
       );
   }
+  function playClickAudio() {}
   return (
     <div style={{ position: "relative", width: "90vw", height: "90vh" }}>
       {/* Canvas for video */}
