@@ -1,0 +1,4 @@
+Bob;
+ENRL1350;
+15;
+Learning is fun.;

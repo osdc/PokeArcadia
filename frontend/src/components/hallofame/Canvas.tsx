@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getRandomInt } from "./utils/misc";
 import gba from "/largeboy.png";
-import { fetchPokemonData } from "./fetchPokemonData";
+import { fetchPokemonData } from "./fetchCDN";
 let scaleFactor = 1;
 let maxX = 0;
 let maxY = 0;
@@ -505,28 +505,14 @@ const Canvas: React.FC = () => {
         );
     }
     pointerCtx.globalAlpha = 1;
-    if (pokeIndex > pokemonData.length / 2) {
-      pointerCtx.drawImage(
-        pokemonData[pokeIndex].img,
-        coords[pokeIndex].xs * scaleFactor +
-          B * pointerCanvas.width +
-          pushFactor,
-        coords[pokeIndex].ys * scaleFactor +
-          pointerCanvas.height * C -
-          pokemonData[pokeIndex].PokiHeight * scaleFactor,
-        pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
-        pokemonData[pokeIndex].PokiHeight * scaleFactor * 2,
-      );
-    } else
-      pointerCtx.drawImage(
-        pokemonData[pokeIndex].img,
-        coords[pokeIndex].xs * scaleFactor +
-          B * pointerCanvas.width +
-          pushFactor,
-        coords[pokeIndex].ys * scaleFactor + pointerCanvas.height * C,
-        pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
-        pokemonData[pokeIndex].PokiHeight * scaleFactor * 1.5,
-      );
+
+    pointerCtx.drawImage(
+      pokemonData[pokeIndex].img,
+      coords[pokeIndex].xs * scaleFactor + B * pointerCanvas.width + pushFactor,
+      coords[pokeIndex].ys * scaleFactor + pointerCanvas.height * C,
+      pokemonData[pokeIndex].PokiHeight * scaleFactor,
+      pokemonData[pokeIndex].PokiHeight * scaleFactor,
+    );
   }
   function playClickAudio() {
     const sound = new Audio("clickSoundEffect.wav");
