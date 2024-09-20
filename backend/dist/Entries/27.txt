@@ -1,4 +1,0 @@
-Diana;
-ENRL5401;
-255;
-This is a test.;

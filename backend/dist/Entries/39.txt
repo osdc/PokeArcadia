@@ -1,4 +1,0 @@
-Alice;
-ENRL2550;
-565;
-Python is awesome!;

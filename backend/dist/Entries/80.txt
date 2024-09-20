@@ -1,4 +1,0 @@
-Hannah;
-ENRL3170;
-499;
-Hello world!;

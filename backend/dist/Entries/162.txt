@@ -1,4 +1,0 @@
-George;
-ENRL3106;
-478;
-This is a test.;

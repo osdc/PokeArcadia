@@ -1,4 +1,0 @@
-Charlie;
-ENRL1149;
-536;
-Hello world!;

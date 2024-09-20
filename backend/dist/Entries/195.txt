@@ -1,4 +1,0 @@
-Charlie;
-ENRL5881;
-121;
-Just a random one-liner.;

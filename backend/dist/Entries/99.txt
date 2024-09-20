@@ -1,4 +1,0 @@
-George;
-ENRL7055;
-166;
-Keep coding!;

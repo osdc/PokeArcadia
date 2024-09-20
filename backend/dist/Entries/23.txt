@@ -1,4 +1,0 @@
-Edward;
-ENRL9069;
-231;
-Hello world!;

@@ -1,4 +1,0 @@
-Fiona;
-ENRL1334;
-592;
-This is a test.;

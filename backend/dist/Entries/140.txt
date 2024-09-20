@@ -1,4 +1,0 @@
-Alice;
-ENRL4422;
-257;
-This is a test.;

@@ -1,4 +1,0 @@
-George;
-ENRL6456;
-43;
-Hello world!;

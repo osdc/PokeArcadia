@@ -1,4 +1,0 @@
-Bob;
-ENRL6768;
-130;
-Python is awesome!;

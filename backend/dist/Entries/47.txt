@@ -1,4 +1,0 @@
-Fiona;
-ENRL2056;
-245;
-Python is awesome!;

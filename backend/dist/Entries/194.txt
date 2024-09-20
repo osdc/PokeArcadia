@@ -1,4 +1,0 @@
-Bob;
-ENRL3997;
-263;
-This is a test.;

@@ -1,4 +1,0 @@
-Bob;
-ENRL2351;
-458;
-Learning is fun.;

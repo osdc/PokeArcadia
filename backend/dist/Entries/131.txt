@@ -1,4 +1,0 @@
-George;
-ENRL4070;
-20;
-Learning is fun.;

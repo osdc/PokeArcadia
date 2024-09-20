@@ -1,4 +1,0 @@
-Bob;
-ENRL5920;
-307;
-Hello world!;

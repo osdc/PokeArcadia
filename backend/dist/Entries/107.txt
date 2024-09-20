@@ -1,4 +1,0 @@
-Edward;
-ENRL7868;
-520;
-Learning is fun.;

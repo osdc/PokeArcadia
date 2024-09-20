@@ -1,4 +1,0 @@
-Charlie;
-ENRL5099;
-16;
-Adventure awaits.;

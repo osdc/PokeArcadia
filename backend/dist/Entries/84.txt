@@ -1,4 +1,0 @@
-Hannah;
-ENRL1565;
-159;
-This is a test.;

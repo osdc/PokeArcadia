@@ -8,6 +8,7 @@ let maxY = 0;
 let side: number;
 let pointerCanvas: HTMLCanvasElement;
 let pointerCtx: CanvasRenderingContext2D;
+let loaded = false;
 const pokemonData: {
   name: string;
   enrl: string;
@@ -260,12 +261,14 @@ const Canvas: React.FC = () => {
         nextClick();
       }
     }
-    if (clicked(x, y, nb3, newRad)) {
-      playClickAudio();
-      nextMode();
-    } else if (clicked(x, y, nb4, newRad)) {
-      playClickAudio();
-      prevMode();
+    if (allAssetsLoaded) {
+      if (clicked(x, y, nb3, newRad)) {
+        playClickAudio();
+        nextMode();
+      } else if (clicked(x, y, nb4, newRad)) {
+        playClickAudio();
+        prevMode();
+      }
     }
   };
   // Assuming you are using React's useEffect for side effects

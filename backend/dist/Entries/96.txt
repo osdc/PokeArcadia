@@ -1,4 +1,0 @@
-Charlie;
-ENRL5193;
-450;
-Keep coding!;

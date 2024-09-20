@@ -1,4 +1,0 @@
-Hannah;
-ENRL5461;
-502;
-Python is awesome!;

@@ -1,4 +1,0 @@
-Fiona;
-ENRL1705;
-152;
-Hello world!;

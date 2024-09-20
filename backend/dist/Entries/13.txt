@@ -1,4 +1,0 @@
-Alice;
-ENRL5847;
-555;
-Learning is fun.;
