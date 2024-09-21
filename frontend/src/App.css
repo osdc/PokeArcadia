@@ -1,6 +1,6 @@
 /* For Early Gameboy font */
 @font-face {
-    font-family: "Early Gameboy";
+    font-family: "EarlyGameboy";
     src: url("./fonts/earlyGameboy.ttf");
     font-weight: normal;
     font-style: normal;
@@ -8,7 +8,7 @@
 
 /* For Flipps Regular font */
 @font-face {
-    font-family: "Flipps Regular";
+    font-family: "FlippsRegular";
     src: url("./fonts/flippsRegular.otf");
     font-weight: normal;
     font-style: normal;
