@@ -51,14 +51,18 @@ const parseUserFile = (fileContent) => {
     .split(";")
     .map((item) => item.trim())
     .filter(Boolean);
-  if (parts.length < 4) {
+  if (parts.length != 4) {
     console.warn(`Incomplete data: ${fileContent}`);
     return null;
   }
   const [name, enrl, numberStr, oneLiner] = parts;
   const number = parseInt(numberStr, 10);
-  if (isNaN(number)) {
+  if (isNaN(number) || number > 600 || number < 1) {
     console.warn(`Invalid number: ${numberStr}`);
+    return null;
+  }
+  if (oneLiner.length > 150) {
+    console.warn("Thats a huge one liner!");
     return null;
   }
   return {
