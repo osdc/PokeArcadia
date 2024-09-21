@@ -334,6 +334,7 @@ const Canvas: React.FC = () => {
     document.fonts.ready.then(() => {
       const pokemon = pokemonData[pokeIndex];
       pointerCtx.imageSmoothingEnabled = false;
+
       // Left side color (green)
       pointerCtx.fillStyle = "#99EDC3";
       pointerCtx.fillRect(
@@ -352,8 +353,11 @@ const Canvas: React.FC = () => {
       const lhsHeight = pointerCanvas.height * A;
       const lhsHalfHeight = lhsHeight / 2;
 
+      // Dynamically scale the font size for the Pokémon name based on canvas size
+      const dynamicFontSize = Math.min(pointerCanvas.width * 0.05, 30); // Scales font size but caps it at 30px
+      pointerCtx.font = `bold ${dynamicFontSize}px GBAFont`;
+
       // Pokémon name (heading) - Centered in the top half of LHS
-      pointerCtx.font = `bold ${300 * B}px GBAFont`;
       const pokemonName = pokemon.name.toUpperCase();
       const nameTextWidth = pointerCtx.measureText(pokemonName).width;
       const nameTextX = lhsStartX + (lhsWidth - nameTextWidth) / 2;
@@ -365,9 +369,9 @@ const Canvas: React.FC = () => {
       pointerCtx.fillText(pokemonName, nameTextX, nameTextY);
 
       // Setting up the one-liner in the bottom half - Centered both vertically and horizontally
-      pointerCtx.font = `${200 * B}px FireRedScript`;
+      pointerCtx.font = `${dynamicFontSize * 0.5}px FireRedScript`; // Scale FireRedScript text accordingly
       const oneLiner = pokemon.oneLiner;
-      const lineHeight = 25; // Line height for multi-line text
+      const lineHeight = dynamicFontSize * 0.7; // Line height for multi-line text
 
       // Function to wrap text and center each line horizontally
       function wrapTextCentered(
@@ -449,7 +453,7 @@ const Canvas: React.FC = () => {
 
       // Setting up the Pokémon name text on RHS
       pointerCtx.fillStyle = "black";
-      pointerCtx.font = `${300 * B}px GBAFont`;
+      pointerCtx.font = `${dynamicFontSize}px GBAFont`;
 
       const pokemonRHSName = pokemon.Pokiname.toUpperCase();
       const rhsWidth = (pointerCanvas.width * D * 1) / 3;
@@ -468,6 +472,7 @@ const Canvas: React.FC = () => {
       );
     });
   }
+
   function normal() {
     pointerCtx.fillStyle = "#A8C281";
     pointerCtx.fillRect(
