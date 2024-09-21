@@ -429,6 +429,14 @@ const Canvas: React.FC = () => {
         (pointerCanvas.width * D * 1) / 3,
         pointerCanvas.height * A,
       );
+      pointerCtx.strokeStyle = "black";
+      pointerCtx.lineWidth = 10;
+      pointerCtx.strokeRect(
+        B * pointerCanvas.width + (pointerCanvas.width * D * 2) / 3 - 3,
+        pointerCanvas.height * C,
+        (pointerCanvas.width * D * 1) / 3,
+        pointerCanvas.height * A,
+      );
 
       // The Pokémon image
       pointerCtx.drawImage(
