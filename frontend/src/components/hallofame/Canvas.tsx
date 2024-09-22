@@ -487,11 +487,11 @@ const Canvas: React.FC = () => {
         coords[i].xs * scaleFactor +
           B * pointerCanvas.width +
           pushFactor +
-          (pokemonData[i].PokiHeight * scaleFactor * 3) / 5,
+          (pokemonData[i].PokiHeight * scaleFactor) / 2,
         coords[i].ys * scaleFactor +
           pointerCanvas.height * C +
           (pokemonData[i].PokiHeight * scaleFactor * 8) / 9,
-        (pokemonData[i].PokiHeight * scaleFactor) / 2,
+        (pokemonData[i].PokiHeight * scaleFactor * 3) / 8,
         (pokemonData[i].PokiHeight * scaleFactor) / 8,
         0,
         0,
