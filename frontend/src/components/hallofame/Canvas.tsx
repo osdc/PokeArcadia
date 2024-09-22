@@ -222,19 +222,10 @@ const Canvas: React.FC = () => {
             (maxX * scaleFactor + B * imagesCanvas.width)) /
           2;
         // Draw Pokémon images on the images canvas
+        pointerCtx.imageSmoothingEnabled = false;
         const drawPokemonImages = () => {
           if (imagesCtx) {
-            for (let i = 0; i < pokemonData.length; i++) {
-              imagesCtx.drawImage(
-                pokemonData[i].img,
-                coords[i].xs * scaleFactor +
-                  B * imagesCanvas.width +
-                  pushFactor,
-                coords[i].ys * scaleFactor + imagesCanvas.height * C,
-                pokemonData[i].PokiHeight * scaleFactor,
-                pokemonData[i].PokiHeight * scaleFactor,
-              );
-            }
+            normal();
 
             setAllAssetsLoaded(true); // Set this after drawing Pokémon images
           }
@@ -333,7 +324,6 @@ const Canvas: React.FC = () => {
   function standOutpp() {
     document.fonts.ready.then(() => {
       const pokemon = pokemonData[pokeIndex];
-      pointerCtx.imageSmoothingEnabled = false;
 
       // Left side color (green)
       pointerCtx.fillStyle = "#99EDC3";
@@ -489,6 +479,26 @@ const Canvas: React.FC = () => {
       pointerCanvas.height * A,
     );
     for (let i = 0; i < pokemonData.length; i++) {
+      pointerCtx.fillStyle = "black";
+      pointerCtx.globalAlpha = 0.3;
+      //First me make the shadow of the pokemon
+      pointerCtx.beginPath();
+      pointerCtx.ellipse(
+        coords[i].xs * scaleFactor +
+          B * pointerCanvas.width +
+          pushFactor +
+          (pokemonData[i].PokiHeight * scaleFactor * 3) / 5,
+        coords[i].ys * scaleFactor +
+          pointerCanvas.height * C +
+          (pokemonData[i].PokiHeight * scaleFactor * 8) / 9,
+        (pokemonData[i].PokiHeight * scaleFactor) / 2,
+        (pokemonData[i].PokiHeight * scaleFactor) / 8,
+        0,
+        0,
+        2 * Math.PI * 2,
+      );
+      pointerCtx.fill();
+      pointerCtx.globalAlpha = 1;
       pointerCtx.drawImage(
         pokemonData[i].img,
         coords[i].xs * scaleFactor + B * pointerCanvas.width + pushFactor,
