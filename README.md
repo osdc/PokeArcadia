@@ -20,15 +20,15 @@ PokeArcadia is a fun game where you get to work with a Pokémon-themed project. 
 
 Here's a quick overview of the project structure:
 
-Poke/
+PokeArcadia/<br>
  │├── frontend/ # The frontend of the game <br />
-   │└── cdn/ # The folder where you will add your .txt files <br />
+   │└── cdn/ # {inside /pokedc}The folder where you will add your .txt files <br />
      │└── README.md # This file! <br />
 
      
 ## How to Contribute
 
-To contribute to PokeArcadia, you'll be adding your own .txt file to the `backend/Entries/` folder. Follow the instructions below to get started.
+To contribute to PokeArcadia, add your own .txt file to the `pokedc/cdn/` on the [PokeDc repo](https://github.com/osdc/pokedc) folder. You can follow the instructions below to get started.
 
 # File Format
 
