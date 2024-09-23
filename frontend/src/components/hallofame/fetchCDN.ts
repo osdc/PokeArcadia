@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Fetches the contents of a folder in the GitHub repository, only taking .txt files
 const fetchFolderContents = async () => {
-  const username = "ItsArnavSh";
+  const username = "osdc";
   const repo = "pokedc";
   const folder = "cdn";
   const branch = "main";
