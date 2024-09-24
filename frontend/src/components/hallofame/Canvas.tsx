@@ -351,8 +351,8 @@ const Canvas: React.FC = () => {
       const lhsHalfHeight = lhsHeight / 2;
 
       // Dynamically scale the font size for the Pokémon name based on canvas size
-      const dynamicFontSize = Math.min(pointerCanvas.width * 0.05, 30) / 2; // Scales font size but caps it at 30px
-      pointerCtx.font = `bold ${dynamicFontSize}px GBAFont`;
+      const dynamicFontSize = Math.min(pointerCanvas.width * 0.05, 30); // Scales font size but caps it at 30px
+      pointerCtx.font = `bold ${(dynamicFontSize * 3) / 5}px GBAFont`;
 
       // Pokémon name (heading) - Centered in the top half of LHS
       const pokemonName = pokemon.name.toUpperCase();
@@ -450,7 +450,7 @@ const Canvas: React.FC = () => {
 
       // Setting up the Pokémon name text on RHS
       pointerCtx.fillStyle = "black";
-      pointerCtx.font = `${dynamicFontSize}px GBAFont`;
+      pointerCtx.font = `${dynamicFontSize / 2}px GBAFont`;
 
       const pokemonRHSName = pokemon.Pokiname.toUpperCase();
       const rhsWidth = (pointerCanvas.width * D * 1) / 3;
