@@ -92,7 +92,10 @@ export const fetchPokemonData = async () => {
         .get(`https://pokeapi.co/api/v2/pokemon/${user.number}`)
         .then((res) => ({
           ...user,
-          Pokiname: res.data.name,
+          Pokiname:
+            res.data.name == "darmanitan-standard"
+              ? "Darmanitidan"
+              : res.data.name,
           PokiHeight: res.data.height,
           PokiSprite:
             res.data.sprites.versions["generation-v"]["black-white"].animated
